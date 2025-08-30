@@ -5,7 +5,7 @@ import appwriteService from "../appwrite/db.js";
 function AllPosts() {
     const [posts, setPosts] = useState([])
     useEffect(() => {}, [])
-    appwriteService.getPosts([]).then((posts) => {
+    appwriteService.listPost([]).then((posts) => {
         if (posts) {
             setPosts(posts.documents)
         }

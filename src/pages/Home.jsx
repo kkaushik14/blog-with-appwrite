@@ -6,7 +6,7 @@ function Home() {
     const [posts, setPosts] = useState([])
 
     useEffect(() => {
-        service.getPost().then((posts) => {
+        service.listPost().then((posts) => {
             if (posts) {
                 setPosts(posts.documents)
             }

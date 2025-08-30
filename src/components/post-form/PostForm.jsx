@@ -1,10 +1,20 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useCallback } from 'react'
 import { useForm } from 'react-hook-form'
-import { Button, Input, Select, RTE } from '../index'
+import { Button, Input, Select, RTE } from '../index.js'
 import { useNavigate } from 'react-router-dom' 
 import { useSelector } from 'react-redux'
+import appwriteService from '../../appwrite/db.js'
 
-export default function PostForm() {
+export default function PostForm({post}) {
+        const { register, handleSubmit, watch, setValue, control, getValues } = useForm({
+        defaultValues: {
+            title: post?.title || "",
+            slug: post?.$id || "",
+            content: post?.content || "",
+            status: post?.status || "active",
+        },
+    })
+
     const navigate = useNavigate()
     const userData = useSelector((state) => state.auth.userData);
 
@@ -30,7 +40,7 @@ export default function PostForm() {
             if (file) {
                 const fileId = file.$id;
                 data.featuredImage = fileId;
-                const dbPost = await appwriteService.createPost({ ...data, userId: userData.$id });
+                const dbPost = await appwriteService.createPostt({ ...data, userId: userData.$id });
 
                 if (dbPost) {
                     navigate(`/post/${dbPost.$id}`);
@@ -39,6 +49,9 @@ export default function PostForm() {
         }
     };
 
+    // Two input feild we have to manage slug and title, in this we have to watch title and set slug when title changes, example: "My First Post!" => "my-first-post".
+
+    // Watch and changes will go in useEffect.
      const slugTransform = useCallback((value) => {
         if (value && typeof value === "string")
             return value
@@ -46,7 +59,6 @@ export default function PostForm() {
                 .toLowerCase()
                 .replace(/[^a-zA-Z\d\s]+/g, "-")
                 .replace(/\s/g, "-");
-
         return "";
     }, []);
 
@@ -57,6 +69,9 @@ export default function PostForm() {
             }
         });
 
+        // Memory management or optimization
+        // This will unsubscribe the watch when component unmounts
+        // This line makes sure that when your component goes away, it turns off the subscription to free memory and avoid problems.
         return () => subscription.unsubscribe();
     }, [watch, slugTransform, setValue]);
   return (
