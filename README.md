@@ -83,4 +83,40 @@ VITE_APPWRITE_BUCKET_ID=your_bucket_id
 
 ## 🤝 Contributing
 
+### How to Fork and Contribute
+
+1. **Fork the Repository**
+   - Click the 'Fork' button at the top right of this repository
+   - This will create a copy of the repository in your GitHub account
+
+2. **Clone Your Fork**
+   ```bash
+   git clone https://github.com/YOUR-USERNAME/blog-with-appwrite.git
+   cd blog-with-appwrite
+   ```
+
+3. **Add the Original Repository as Upstream**
+   ```bash
+   git remote add upstream https://github.com/kkaushik14/blog-with-appwrite.git
+   ```
+
+4. **Create a New Branch**
+   ```bash
+   git checkout -b feature/your-feature-name
+   ```
+
+5. **Make Your Changes**
+   - Implement your features or fixes
+   - Commit your changes with meaningful commit messages
+
+6. **Push to Your Fork**
+   ```bash
+   git push origin feature/your-feature-name
+   ```
+
+7. **Create a Pull Request**
+   - Go to your fork on GitHub
+   - Click 'New Pull Request'
+   - Select your feature branch and submit the PR
+
 Feel free to open issues and pull requests. We appreciate any contributions to improve the platform.
